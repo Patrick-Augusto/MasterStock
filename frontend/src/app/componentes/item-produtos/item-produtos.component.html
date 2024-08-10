@@ -1,0 +1,29 @@
+<div (click)="abrirDetalhe()" class="item-produtos sombra">
+  <ng-container *ngIf="estaEmFalta()">
+    <div class="emFalta sombra">!</div>
+  </ng-container>
+
+  <div class="img">
+    <img
+      [src]="
+        produto.imagem ||
+        'https://cdn-icons-png.flaticon.com/512/3731/3731110.png'
+      "
+      alt=""
+    />
+  </div>
+
+  <div class="legenda">
+    <div class="nome">
+      <p>{{ produto.nome | titlecase }}</p>
+    </div>
+
+    <div class="quantidade">
+      <ng-container *ngIf="temDesejado()">
+        <p>Desejado: {{ produto.desejado }}</p>
+      </ng-container>
+
+      <p>Estoque: {{ produto.quantidade }}</p>
+    </div>
+  </div>
+</div>

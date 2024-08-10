@@ -1,0 +1,134 @@
+<app-cabecalho [nomePagina]="produto.nome"></app-cabecalho>
+
+<div class="descricaoProduto">
+  <ng-container *ngIf="mostrarMensagemConfirmacao">
+    <app-confirmacao
+      (confirmado)="aoConfirmar($event)"
+      [mensagem]="mensagemConfirmacao"
+    ></app-confirmacao>
+  </ng-container>
+
+  <div class="icons">
+    <div (click)="voltar()">
+      <span class="voltar material-symbols-outlined"> arrow_back_ios </span>
+    </div>
+
+    <ng-container *ngIf="estaEmFalta()">
+      <div class="emFalta sombra">!</div>
+    </ng-container>
+  </div>
+
+  <div class="img">
+    <img
+      [src]="
+        produto.imagem || 'https://fakeimg.pl/600x600?text=Adicionar&font=bebas'
+      "
+      alt=""
+    />
+  </div>
+
+  <div class="legenda sombra">
+    <div *ngIf="!estaEditando; else editando" class="info">
+      <p (click)="estaConfirmando ? alternarEstaEditando() : null">
+        Descrição: {{ produto.descricao || "Clique para adicionar" }}
+      </p>
+
+      <p>Estoque: {{ produto.quantidade }}</p>
+
+      <p (click)="estaConfirmando ? alternarEstaEditando() : null">
+        Desejada: {{ produto.desejado || "Clique para adicionar" }}
+      </p>
+
+      <ng-container *ngIf="!!produto.data_compra">
+        <p>
+          Comprado pela última vez:
+          {{ getDataFormatada(produto.data_compra.toString()) }}
+        </p>
+      </ng-container>
+
+      <p>Preço: R$ {{ produto.valor_unitario }}</p>
+    </div>
+
+    <ng-template #editando>
+      <div class="info">
+        <div class="campo">
+          <label for="descricao">Descrição: </label>
+          <input
+            [(ngModel)]="produto.descricao"
+            placeholder="{{ produto.descricao || 'Descrição do produto' }}"
+            type="text"
+          />
+        </div>
+
+        <div class="campo">
+          <label for="quantidade">Estoque: </label>
+          <input
+            [(ngModel)]="produto.quantidade"
+            placeholder="{{ produto.quantidade }}"
+            type="text"
+          />
+        </div>
+
+        <div class="campo">
+          <label for="desejado">Desejada: </label>
+          <input
+            [(ngModel)]="produto.desejado"
+            placeholder="{{
+              produto.desejado || 'Quantidade desejada no estoque'
+            }}"
+            type="text"
+          />
+        </div>
+
+        <ng-container *ngIf="!!produto.data_compra">
+          <p>
+            Comprado pela última vez:
+            {{ getDataFormatada(produto.data_compra.toString()) }}
+          </p>
+        </ng-container>
+
+        <div class="campo">
+          <label for="valor">Preço: </label>
+          <input
+            [(ngModel)]="produto.valor_unitario"
+            placeholder="R$ {{ produto.valor_unitario }}"
+            type="text"
+          />
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #confirmar>
+      <div class="botoes">
+        <button (click)="alternarEstaEditando()" class="feito">
+          <span class="material-symbols-outlined icon"> done </span>
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-container *ngIf="!estaEditando; else confirmar">
+      <div class="botoes">
+        <ng-container *ngFor="let opcao of opcoes">
+          <button
+            (click)="realizarAcao(opcao)"
+            [className]="opcao.nome"
+            class="sombra"
+          >
+            <span
+              class="material-symbols-outlined icon"
+              [ngStyle]="{
+                'font-variation-settings':
+                  opcao.nome === OpcaoProdutoEnum.favoritar &&
+                  produto.favoritado
+                    ? '\'FILL\' 1'
+                    : '\'FILL\' 0'
+              }"
+            >
+              {{ opcao.icone }}
+            </span>
+          </button>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>

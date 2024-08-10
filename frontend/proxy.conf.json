@@ -1,0 +1,16 @@
+{
+  "/api/**": {
+    "target": "http://node:3000",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/api": "" }
+  },
+  "/bot/**": {
+    "target": "http://bot:5000",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "pathRewrite": { "^/bot": "" }
+  }
+}

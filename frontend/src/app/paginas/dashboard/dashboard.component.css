@@ -1,0 +1,75 @@
+.dashboard {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.itensDestaque {
+  overflow: scroll;
+  height: 15rem;
+  width: auto;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 6rem;
+  padding: 0.8rem;
+}
+
+.sem-produtos {
+  margin-left: 4rem;
+}
+
+.dashboard-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.quantidade {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-produtos,
+.produtos-em-falta {
+  width: 45%;
+  height: 12rem;
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: var(--color-gray-500);
+  border-radius: 1rem;
+  font-size: 3rem;
+}
+
+.valor-gasto-no-mes {
+  width: 90%;
+  height: 12rem;
+  background-color: var(--color-gray-500);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 3rem;
+}
+
+.legenda {
+  font-size: 1rem;
+}
